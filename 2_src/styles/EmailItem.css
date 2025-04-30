@@ -1,0 +1,86 @@
+.email-item {
+  display: grid;
+  grid-template-columns: 200px 1fr 100px 40px;
+  grid-template-areas: 
+    "sender subject date delete"
+    "preview preview preview delete";
+  gap: 0.5rem;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.email-item.dark {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.email-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.email-item.dark:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.email-item.unread {
+  font-weight: bold;
+  background-color: rgba(66, 133, 244, 0.05);
+}
+
+.email-item.dark.unread {
+  background-color: rgba(66, 133, 244, 0.1);
+}
+
+.email-sender {
+  grid-area: sender;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.email-subject {
+  grid-area: subject;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.email-preview {
+  grid-area: preview;
+  font-weight: normal;
+  font-size: 0.9rem;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.email-item.dark .email-preview {
+  color: #aaa;
+}
+
+.email-date {
+  grid-area: date;
+  text-align: right;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.email-item.dark .email-date {
+  color: #aaa;
+}
+
+.email-delete-btn {
+  grid-area: delete;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  font-size: 1.1rem;
+}
+
+.email-delete-btn:hover {
+  opacity: 1;
+}

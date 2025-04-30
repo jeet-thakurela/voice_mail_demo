@@ -1,0 +1,98 @@
+/* Root Container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark & Light Mode Styles */
+.app-container.dark {
+  background-color: #121212;
+  color: white;
+}
+
+.app-container.light {
+  background-color: white;
+  color: #333;
+}
+
+/* Layout: Sidebar + Content */
+.layout-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  transition: width 0.3s ease;
+}
+
+.sidebar.collapsed {
+  width: 60px;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 250px; /* Prevents content from overlapping sidebar */
+  overflow: hidden;
+}
+
+/* Content Area */
+.content-area {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
+}
+
+.content-area::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content-area::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.content-area::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Voice Control Wrapper */
+.voice-control-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+
+  .sidebar.open {
+    width: 200px;
+  }
+
+  .main-content {
+    margin-left: 60px;
+  }
+
+  .content-area {
+    padding: 0.5rem;
+  }
+}
