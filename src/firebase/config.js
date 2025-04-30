@@ -6,12 +6,13 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
  // Your web app's Firebase configuration
  const firebaseConfig = {
-  apiKey: "AIzaSyClyX-Sxaz8AqBYTBefCCL4pjjRnjqmwHc",
-  authDomain: "voice-email-app-44fef.firebaseapp.com",
-  projectId: "voice-email-app-44fef",
-  storageBucket: "voice-email-app-44fef.firebasestorage.app",
-  messagingSenderId: "50430064588",
-  appId: "1:50430064588:web:0cfc89e1c5bdc346bbcf69"
+  apiKey: "AIzaSyCmS7EcpBDCFUYdEOzVg42sBaaF2w-JNZo",
+  authDomain: "vchat-jt99.firebaseapp.com",
+  projectId: "vchat-jt99",
+  storageBucket: "vchat-jt99.firebasestorage.app",
+  messagingSenderId: "860841243412",
+  appId: "1:860841243412:web:1a4c27554fd4e2be150801",
+  measurementId: "G-780W7NV55Y"
 };
 
 
