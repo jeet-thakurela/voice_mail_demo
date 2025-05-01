@@ -234,7 +234,7 @@ const LoginPage = () => {
 
   return (
     <div className={`login-container ${darkMode ? 'dark-theme' : 'light-theme'}`} role="main" aria-live="polite">
-      <h1 tabIndex="-1">Voice-Based Email Service 2</h1>
+      <h1 tabIndex="-1">Voice-Based Email Service </h1>
       
       <button 
         onClick={toggleDarkMode} 
