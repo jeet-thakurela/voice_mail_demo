@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 script {
-                    sshagent(['github-ssh-key']) {
+                    sshagent(['github-ssh-key1']) {
                         dir('voice_mail_demo') {
                             if (!fileExists('package.json')) {
                                 sh 'git clone git@github.com:jeet-thakurela/voice_mail_demo.git .'
