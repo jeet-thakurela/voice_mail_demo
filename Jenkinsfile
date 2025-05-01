@@ -44,8 +44,11 @@ pipeline {
         stage('Deploy to Nginx') {
             steps {
                 sh '''
-                    sudo rm -rf /var/www/html/*
-                    sudo cp -r voice_mail_demo/build/* /var/www/html/
+                    sudo rm -rf /var/www/voice_mail_demo
+                    sudo mkdir -p /var/www/voice_mail_demo
+                    sudo cp -r voice_mail_demo/dist/* /var/www/voice_mail_demo/
+                    sudo chown -R www-data:www-data /var/www/voice_mail_demo
+                    sudo chmod -R 755 /var/www/voice_mail_demo
                     sudo systemctl restart nginx
                 '''
             }
