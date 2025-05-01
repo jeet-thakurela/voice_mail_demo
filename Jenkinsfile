@@ -1,15 +1,10 @@
 pipeline {
     agent any
 
-    environment {
-        GIT_SSH_COMMAND = 'ssh -i /var/lib/jenkins/.ssh/id_rsa -o StrictHostKeyChecking=no'
-    }
-
     stages {
-        stage('Clone Repo') {
+        stage('Checkout Code') {
             steps {
-                script {
-                    // Clone repository using SSH URL
+                sshagent(['github-ssh-key']) {  // This ID must match the Jenkins credential ID
                     sh 'git clone git@github.com:jeet-thakurela/voice_mail_demo.git'
                 }
             }
@@ -17,32 +12,23 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                script {
-                    // Install dependencies
-                    sh 'cd voice_mail_demo && npm install'
-                }
+                sh 'cd voice_mail_demo && npm install'
             }
         }
 
         stage('Build Project') {
             steps {
-                script {
-                    // Build the React app
-                    sh 'cd voice_mail_demo && npm run build'
-                }
+                sh 'cd voice_mail_demo && npm run build'
             }
         }
 
         stage('Deploy to Nginx') {
             steps {
-                script {
-                    // Copy the build to Nginx directory
-                    sh '''
-                        sudo rm -rf /var/www/html/*
-                        sudo cp -r voice_mail_demo/build/* /var/www/html/
-                        sudo systemctl restart nginx
-                    '''
-                }
+                sh '''
+                    sudo rm -rf /var/www/html/*
+                    sudo cp -r voice_mail_demo/build/* /var/www/html/
+                    sudo systemctl restart nginx
+                '''
             }
         }
     }
