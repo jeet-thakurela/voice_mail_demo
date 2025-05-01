@@ -6,24 +6,38 @@ pipeline {
             steps {
                 script {
                     sshagent(['github-ssh-key']) {
-                        // If the folder exists, pull changes instead of deleting
-                        if (fileExists('voice_mail_demo/.git')) {
-                            dir('voice_mail_demo') {
+                        dir('voice_mail_demo') {
+                            if (!fileExists('package.json')) {
+                                sh 'git clone git@github.com:jeet-thakurela/voice_mail_demo.git .'
+                            } else {
                                 sh 'git pull'
                             }
-                        } else {
-                            sh 'git clone git@github.com:jeet-thakurela/voice_mail_demo.git'
                         }
                     }
                 }
             }
         }
 
-        // Removed Install Dependencies stage entirely
+        stage('Install Dependencies') {
+            steps {
+                dir('voice_mail_demo') {
+                    script {
+                        if (!fileExists('node_modules/react')) {
+                            echo 'node_modules missing or incomplete. Running npm install...'
+                            sh 'npm install'
+                        } else {
+                            echo 'Dependencies already installed. Skipping npm install.'
+                        }
+                    }
+                }
+            }
+        }
 
         stage('Build Project') {
             steps {
-                sh 'cd voice_mail_demo && npm run build'
+                dir('voice_mail_demo') {
+                    sh 'npm run build'
+                }
             }
         }
 
