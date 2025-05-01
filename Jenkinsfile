@@ -9,7 +9,7 @@ pipeline {
         stage('Clone Repo') {
             steps {
                 script {
-                    // Use SSH to clone the repository
+                    // Clone repository using SSH URL
                     sh 'git clone git@github.com:jeet-thakurela/voice_mail_demo.git'
                 }
             }
