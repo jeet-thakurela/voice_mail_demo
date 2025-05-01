@@ -4,8 +4,15 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                sshagent(['github-ssh-key']) {  // This ID must match the Jenkins credential ID
-                    sh 'git clone git@github.com:jeet-thakurela/voice_mail_demo.git'
+                script {
+                    // Clean up the existing directory if it exists
+                    if (fileExists('voice_mail_demo')) {
+                        sh 'rm -rf voice_mail_demo'
+                    }
+                    
+                    sshagent(['github-ssh-key']) {  // This ID must match the Jenkins credential ID
+                        sh 'git clone git@github.com:jeet-thakurela/voice_mail_demo.git'
+                    }
                 }
             }
         }
