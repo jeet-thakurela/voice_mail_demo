@@ -22,8 +22,8 @@ pipeline {
             steps {
                 dir('voice_mail_demo') {
                     script {
-                        if (!fileExists('node_modules/react')) {
-                            echo 'node_modules missing or incomplete. Running npm install...'
+                        if (!fileExists('node_modules')) {
+                            echo 'node_modules missing. Running npm install...'
                             sh 'npm install'
                         } else {
                             echo 'Dependencies already installed. Skipping npm install.'
@@ -36,21 +36,28 @@ pipeline {
         stage('Build Project') {
             steps {
                 dir('voice_mail_demo') {
-                    sh 'npm run build'
+                    script {
+                        if (sh(script: 'npm run build --dry-run', returnStatus: true) != 0) {
+                            error "Build script not found"
+                        }
+                        sh 'npm run build'
+                    }
                 }
             }
         }
 
         stage('Deploy to Nginx') {
             steps {
-                sh '''
-                    sudo rm -rf /var/www/voice_mail_demo
-                    sudo mkdir -p /var/www/voice_mail_demo
-                    sudo cp -r voice_mail_demo/dist/* /var/www/voice_mail_demo/
-                    sudo chown -R www-data:www-data /var/www/voice_mail_demo
-                    sudo chmod -R 755 /var/www/voice_mail_demo
-                    sudo systemctl restart nginx
-                '''
+                script {
+                    sh '''
+                        sudo rm -rf /var/www/voice_mail_demo
+                        sudo mkdir -p /var/www/voice_mail_demo
+                        sudo cp -r voice_mail_demo/dist/* /var/www/voice_mail_demo/
+                        sudo chown -R www-data:www-data /var/www/voice_mail_demo
+                        sudo chmod -R 755 /var/www/voice_mail_demo
+                        sudo systemctl restart nginx
+                    '''
+                }
             }
         }
     }
